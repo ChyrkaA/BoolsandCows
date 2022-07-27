@@ -31,47 +31,54 @@ btn.addEventListener('click', function (e) {
 	e.preventDefault();
 	num = document.getElementById('number').value;
 	document.getElementById('number').value = "";
-	chislo(num);
+	let arr2 = chislo(num);
+	proverka(arr, arr2);
 });
+
+function proverka(a, b) {
+	if (a.join(',') === b.join(',')) {
+		alert('Угадал');
+	} else {
+		let bulls = 0;
+		for (let i = 0; i < a.length; i++) {
+			if (a[i] === b[i]) {
+				bulls = bulls + 1;
+			}
+		}
+		let cows = 0;
+		for (let i = 0; i < a.length; i++) {
+			for (let j = 0; j < b.length; j++) {
+				if (b[j] === a[i]) {
+					cows = cows + 1;
+				}
+			}
+		}
+		console.log(a, b);
+		alert('Быки: ' + (bulls) + ' Коровы: ' + (cows - bulls));
+	}
+}
 
 function chislo(data) {
 	let num = data;
+	let arr2;
 	if (num >= 100 && num <= 9999) {
-		let arr2 = Array.from(num.toString(), Number);
+		arr2 = Array.from(num.toString(), Number);
 		for (let i = 0; i < arr2.length; i++) {
 			let cache = arr2[i];
 			for (let j = i + 1; j < arr2.length; j++) {
 				if (cache === arr2[j]) {
 					alert("Некоторые цифры повторяются, будьте внимательнее!");
-					
-				}break;
-			}break;
+				}
+				break;
+			}
+			break;
 		}
-		console.log(arr2);
-		if (arr.join(',') === arr2.join(',')) {
-			alert('Угадал');
-		} else {
-			let bulls = 0;
-			for (let i = 0; i < arr.length; i++) {
-				if (arr[i] === arr2[i]) {
-					bulls = bulls + 1;
-				}
-			}
-			let cows = 0;
-			for (let i = 0; i < arr.length; i++) {
-				for (let j = 0; j < arr2.length; j++) {
-					if (arr2[j] === arr[i]) {
-						cows = cows + 1;
-					}
-				}
-			}
-			console.log(arr, arr2);
-			alert('Быки: ' + (bulls) + ' Коровы: ' + (cows - bulls));
-		} 
 	} else {
 		alert("Число должно быть в диапазоне от 0*** до 9999, будьте внимательнее!");
 	}
+	return arr2;
 }
+
 
 
 /* if (number >= 100 && number <= 9999) {
